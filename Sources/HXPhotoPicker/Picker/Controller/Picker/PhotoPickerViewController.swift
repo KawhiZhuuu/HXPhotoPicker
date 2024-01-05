@@ -11,9 +11,9 @@ import MobileCoreServices
 import AVFoundation
 import Photos
 
-public class PhotoPickerViewController: PhotoBaseViewController {
+open class PhotoPickerViewController: PhotoBaseViewController {
     let config: PhotoListConfiguration
-    override init(config: PickerConfiguration) {
+    override public init(config: PickerConfiguration) {
         self.config = config.photoList
         super.init(config: config)
     }
@@ -31,7 +31,7 @@ public class PhotoPickerViewController: PhotoBaseViewController {
     var orientationDidChange: Bool = false
     weak var finishItem: PhotoNavigationItem?
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         if let photoToolbar = config.photoToolbar {
             isShowToolbar = photoToolbar.isShow(pickerConfig, type: .picker)
@@ -43,7 +43,7 @@ public class PhotoPickerViewController: PhotoBaseViewController {
         fetchData()
     }
     
-    override func updateColors() {
+    open override func updateColors() {
         let isDark = PhotoManager.isDark
         view.backgroundColor = isDark ? config.backgroundDarkColor : config.backgroundColor
         if let listView = listView {
@@ -72,7 +72,7 @@ public class PhotoPickerViewController: PhotoBaseViewController {
     var isFirstLayout: Bool = true
     var appropriatePlaceAsset: PhotoAsset?
     var navigationBarHeight: CGFloat?
-    public override func viewDidLayoutSubviews() {
+    open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if isDisableLayout {
             isDisableLayout = false
@@ -182,14 +182,14 @@ public class PhotoPickerViewController: PhotoBaseViewController {
         }
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isShowToolbar {
             photoToolbar.viewWillAppear(self)
         }
     }
     
-    public override func viewDidAppear(_ animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if isShowToolbar {
             photoToolbar.viewDidAppear(self)
@@ -197,21 +197,21 @@ public class PhotoPickerViewController: PhotoBaseViewController {
         weakController?.resetDelegate()
     }
     
-    public override func viewWillDisappear(_ animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isShowToolbar {
             photoToolbar.viewWillDisappear(self)
         }
     }
     
-    public override func viewDidDisappear(_ animated: Bool) {
+    open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if isShowToolbar {
             photoToolbar.viewDidDisappear(self)
         }
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

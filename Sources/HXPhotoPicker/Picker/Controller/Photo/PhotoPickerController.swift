@@ -108,7 +108,7 @@ open class PhotoPickerController: UINavigationController {
     
     /// 获取预览界面当前显示的 image 视图
     /// - Returns: 对应的 UIImageView
-    public func getCurrentPreviewImageView() -> UIImageView? {
+    open func getCurrentPreviewImageView() -> UIImageView? {
         if let previewVC = previewViewController,
            let cell = previewVC.getCell(for: previewVC.currentPreviewIndex) {
             return cell.scrollContentView.imageView.imageView
@@ -134,18 +134,18 @@ open class PhotoPickerController: UINavigationController {
     
     /// 获取预览界面当前显示的 image 视图
     /// - Returns: 对应的 UIImageView
-    public var currentPreviewImageView: UIImageView? {
+    open var currentPreviewImageView: UIImageView? {
         getCurrentPreviewImageView()
     }
     
     /// UISplitViewController 中的相册列表控制器
-    public var albumViewController: AlbumViewController? {
+    open var albumViewController: AlbumViewController? {
         getViewController(
             for: AlbumViewController.self
         ) as? AlbumViewController
     }
     
-    public var photoAlbumViewController: PhotoAlbumController? {
+    open var photoAlbumViewController: PhotoAlbumController? {
         for case let vc as PhotoAlbumController in viewControllers {
             return vc
         }
@@ -153,13 +153,13 @@ open class PhotoPickerController: UINavigationController {
     }
     
     /// 照片选择控制器
-    public var pickerViewController: PhotoPickerViewController? {
+    open var pickerViewController: PhotoPickerViewController? {
         getViewController(
             for: PhotoPickerViewController.self
         ) as? PhotoPickerViewController
     }
     /// 照片预览控制器
-    public var previewViewController: PhotoPreviewViewController? {
+    open var previewViewController: PhotoPreviewViewController? {
         getViewController(
             for: PhotoPreviewViewController.self
         ) as? PhotoPreviewViewController
@@ -334,7 +334,7 @@ open class PhotoPickerController: UINavigationController {
     private var isFirstAuthorization: Bool = false
     var isFetchAssetCollection: Bool = false
     
-    public override var modalPresentationStyle: UIModalPresentationStyle {
+    open override var modalPresentationStyle: UIModalPresentationStyle {
         didSet {
             if previewType != .none && modalPresentationStyle == .custom && !splitType.isSplit {
                 transitioningDelegate = self
@@ -343,7 +343,7 @@ open class PhotoPickerController: UINavigationController {
         }
     }
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
         PhotoManager.shared.indicatorType = config.indicatorType
@@ -392,7 +392,7 @@ open class PhotoPickerController: UINavigationController {
         }
     }
     
-    private func initViews() {
+    open func initViews() {
         configColor()
         deniedView = config.notAuthorizedView.init(config: config)
         deniedView.pickerDelegate = self
@@ -423,7 +423,7 @@ open class PhotoPickerController: UINavigationController {
             completion: completion
         )
     }
-    public override func viewDidLayoutSubviews() {
+    open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let status = AssetManager.authorizationStatus()
         if status.rawValue >= 1 && status.rawValue < 3 {
@@ -435,7 +435,7 @@ open class PhotoPickerController: UINavigationController {
         }
     }
     
-    public func dismiss(_ animated: Bool, completion: (() -> Void)? = nil) {
+    open func dismiss(_ animated: Bool, completion: (() -> Void)? = nil) {
         dismiss(animated: animated, completion: completion)
     }
     
@@ -465,13 +465,13 @@ open class PhotoPickerController: UINavigationController {
         super.dismiss(animated: flag, completion: completion)
     }
     
-    public override var preferredStatusBarStyle: UIStatusBarStyle {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
         if PhotoManager.isDark {
             return .lightContent
         }
         return config.statusBarStyle
     }
-    public override var prefersStatusBarHidden: Bool {
+    open override var prefersStatusBarHidden: Bool {
         if config.prefersStatusBarHidden {
             return true
         }else {
@@ -501,7 +501,7 @@ open class PhotoPickerController: UINavigationController {
             }
         }
     }
-    public override func viewDidDisappear(_ animated: Bool) {
+    open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if previewType == .none && presentingViewController == nil {
             didDismiss()
@@ -631,7 +631,7 @@ extension PhotoPickerController {
         }
     }
     private func getViewController(for viewControllerClass: UIViewController.Type) -> UIViewController? {
-        for vc in viewControllers where vc.isMember(of: viewControllerClass) {
+        for vc in viewControllers where vc.isKind(of: viewControllerClass) {
             return vc
         }
         return nil
