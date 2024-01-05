@@ -392,7 +392,7 @@ open class PhotoPickerController: UINavigationController {
         }
     }
     
-    open func initViews() {
+    private func initViews() {
         configColor()
         deniedView = config.notAuthorizedView.init(config: config)
         deniedView.pickerDelegate = self

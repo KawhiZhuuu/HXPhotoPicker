@@ -75,7 +75,7 @@ public class PhotoPreviewViewController: PhotoBaseViewController {
         initView()
     }
     
-    override func updateColors() {
+    public override func updateColors() {
         if isTransitioning {
             return
         }
