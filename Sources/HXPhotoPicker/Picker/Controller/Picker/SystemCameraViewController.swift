@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SystemCameraViewController: UIImagePickerController {
+public class SystemCameraViewController: UIImagePickerController {
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(
             self,
