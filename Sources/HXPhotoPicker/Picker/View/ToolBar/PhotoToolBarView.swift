@@ -447,20 +447,12 @@ public class PhotoToolBarView: UIToolbar, PhotoToolBar {
             }else if !isShowPrompt {
                 contentView.y = height - contentView.height
             }
-            if leftMargin > 0 {
-                previewBtn.x = leftMargin
-            }else {
-                previewBtn.x = 12
-            }
+            previewBtn.x = max(leftMargin, 16)
             updateFinishButtonFrame()
             updateOriginalViewFrame()
         }else if type == .preview {
             #if HXPICKER_ENABLE_EDITOR
-            if UIDevice.leftMargin > 0 {
-                editBtn.x = UIDevice.leftMargin
-            }else {
-                editBtn.x = 12
-            }
+            editBtn.x = max(UIDevice.leftMargin, 16)
             #endif
             if isShowPreviewList {
                 previewListView.y = 10
@@ -861,11 +853,7 @@ extension PhotoToolBarView {
             finishWidth = 60
         }
         finishBtn.size = .init(width: finishWidth, height: 33)
-        if UIDevice.rightMargin > 0 {
-            finishBtn.x = width - UIDevice.rightMargin - finishWidth
-        }else {
-            finishBtn.x = width - finishWidth - 12
-        }
+        finishBtn.x = width - finishWidth - max(UIDevice.rightMargin, 16)
         finishBtn.centerY = 25
     }
 }
